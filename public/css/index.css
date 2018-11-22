@@ -6,3 +6,17 @@
   color: whitesmoke;
   padding: 1em;
 }
+
+.loading {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -250px;
+}
+.boxsizingBorder {
+  width: 100%;
+  box-sizing: border-box;
+}

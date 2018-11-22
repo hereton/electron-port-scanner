@@ -1,27 +1,50 @@
 const $ = require('jquery')
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
+const axios = require('axios')
 
 $(() => {
   $('#btnScan').on('click', async () => {
     const ip = $('#inputIP').val()
     const number = $('#inputNumber').val()
-
-    console.log(ip, number)
-    // $.get('ajax/test.html', function(data) {
-    //   $('.result').html(data)
-    //   alert('Load was performed.')
-    // })
-    ls()
+    // loadTrigger()
+    // console.log(ip, number)
+    // const response = await axios.get('https://www.google.com')
+    // console.log(response)
+    // unLoadTrigger()
+    // $('#responseData').html(`${response.data}`)
+    await getNetwork()
   })
-
   $('#btnCancel').on('click', () => {
     alert('cancel')
   })
 })
 
-async function ls() {
-  const { stdout, stderr } = await exec('ls')
+loadTrigger = () => {
+  $('.loading').css({
+    display: 'block'
+  })
+  $('.display').css({ opacity: '0.6', transition: '0.3s' })
+}
+unLoadTrigger = () => {
+  $('.loading').css({
+    display: 'none'
+  })
+  $('.display').css({ opacity: '1', transition: '0.3s' })
+}
+
+async function addElement(data) {
+  $('.boxsizingBorder').append(data)
+}
+
+async function getNetwork() {
+  let command = 'route get default | grep gateway'
+  let stdout = await exec(command)
   console.log('stdout:', stdout)
-  console.log('stderr:', stderr)
+  addElement(stdout.stdout.trim() + '\n')
+
+  command = 'ipconfig getifaddr en0'
+  stdout = await exec(command)
+  console.log('stdout:', stdout.stdout)
+  addElement(stdout.stdout.trim() + '\n')
 }
