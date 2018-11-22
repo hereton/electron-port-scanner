@@ -1,0 +1,8 @@
+.myNavbar {
+  display: block;
+  position: sticky;
+  widows: 100%;
+  background-color: black;
+  color: whitesmoke;
+  padding: 1em;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Port Scanner 👀</title>
+    <link rel="stylesheet" href="./public/css/index.css" />
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body>
+    <div class="myNavbar">Port scanner</div>
+    <div class="container border border-primary p-2">
+      <div class="row">
+        <div class="col-sm-2"><label>IP : </label></div>
+        <div class="col-sm-10"><input style="width:100%" id="inputIP" type="text" /></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"><label>Time : </label></div>
+        <div class="col-sm-10"><input style="width:100%" id="inputNumber" type="number" min="0" /></div>
+      </div>
+
+      <br />
+      <div class="text-right">
+        <button class="btn text-bold btn-info" id="btnCancel">Cancel</button>
+        <button class="btn text-bold btn-danger" id="btnScan">Scan</button>
+      </div>
+      <hr />
+
+      <pre id="responseData"></pre>
+    </div>
+  </body>
+  <script src="./public/script/index.js"></script>
+  <script src="renderer.js"></script>
+</html>
