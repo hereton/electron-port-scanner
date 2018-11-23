@@ -5,28 +5,41 @@
     <title>Port Scanner 👀</title>
     <link rel="stylesheet" href="./public/css/index.css" />
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet" />
   </head>
-  <body class="display">
+  <body scroll="no" style="overflow: hidden" class="display">
     <div class="myNavbar">Port scanner</div>
-    <div class="container border border-primary p-2">
+    <div class="container p-4 mt-5">
       <div class="row">
-        <div class="col-sm-2"><label>IP : </label></div>
-        <div class="col-sm-10"><input style="width:100%" id="inputIP" type="text" /></div>
+        <div class="col-sm-2"><label>Host : </label></div>
+        <div class="col-sm-10">
+          <input style="width:100%" id="inputIPs" type="text" placeholder="ex. google.com,favebook.com" />
+        </div>
       </div>
       <div class="row">
-        <div class="col-sm-2"><label>Time : </label></div>
-        <div class="col-sm-10"><input style="width:100%" id="inputNumber" type="number" min="0" /></div>
+        <div class="col-sm-2"><label>Ports : </label></div>
+        <div class="col-sm-10">
+          <input style="width:100%" id="inputPorts" type="text" placeholder="ex. 10-1000, 4000, 8000, 3000" />
+        </div>
       </div>
 
       <br />
       <div class="text-right">
-        <button class="btn text-bold btn-info" id="btnCancel">Cancel</button>
-        <button class="btn text-bold btn-danger" id="btnScan">Scan !</button>
+        <button class="btn btn-info " id="btnCancel" disabled>Cancel</button>
+        <button class="btn btn-danger " id="btnScan">Scan !</button>
       </div>
       <hr />
-      <img style="width:500px; height:500px;" class="loading" src="./public/images/loading.gif" alt="" />
-
-      <textarea name="responseData" class="boxsizingBorder" readonly rows="10"></textarea>
+      <div class="boxsizingBorder">
+        <div class="row">
+          <div class="col-sm-3">Host name</div>
+          <div class="col-sm-3">IP</div>
+          <div class="col-sm-3">Port</div>
+          <div class="col-sm-3">Description</div>
+        </div>
+        <hr />
+        <div id="results"></div>
+        <img class="loading" src="./public/images/loading.gif" alt="" />
+      </div>
     </div>
   </body>
   <script src="./public/script/index.js"></script>
