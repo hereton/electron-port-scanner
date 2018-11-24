@@ -226,9 +226,9 @@ function subnetCal(p1, p2, p3, p4, mask, hosts) {
     hostid = (hostid + 1) >>> 0
     res = ((netid << (32 - classMask)) >>> 0) + ((subnetid << (32 - mask)) >>> 0) + (hostid >>> 0)
     i1 = res >>> 24
-    i2 = res & (maskShift(8, 8) >>> 16)
-    i3 = res & (maskShift(8, 16) >>> 8)
-    i4 = res & (maskShift(8, 24) >>> 0)
+    i2 = (res & maskShift(8, 8)) >>> 16
+    i3 = (res & maskShift(8, 16)) >>> 8
+    i4 = (res & maskShift(8, 24)) >>> 0
     hosts.push(i1 + '.' + i2 + '.' + i3 + '.' + i4)
   }
 
