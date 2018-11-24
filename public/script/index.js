@@ -1,6 +1,4 @@
 const $ = require('jquery')
-const util = require('util')
-const exec = util.promisify(require('child_process').exec)
 const axios = require('axios')
 
 let token
@@ -27,7 +25,7 @@ $(() => {
     try {
       const hosts = getHostArray($('#inputIPs').val())
       const wantedPort = getWantedPorts($('#inputPorts').val())
-      console.log(wantedPort)
+      console.log(hosts)
       const myJSON = createJSON(hosts, wantedPort)
       console.log(myJSON)
       loadTrigger()
@@ -68,7 +66,35 @@ unLoadTrigger = () => {
 }
 
 getHostArray = host => {
-  return host.trim().split(',')
+  let hosts = []
+  let result = host.trim().split(',')
+  console.log(result)
+  result.map(hostName => {
+    console.log(hostName)
+    if (hostName.includes('/')) {
+      let netMask = '00000000000000000000000000000000'
+      let s = hostName.split('/')
+      console.log(s[1])
+      let lastIndex = 0
+      netMask = netMask.substring(0, parseInt(s[1])).replace(/0/g, '1') + netMask.substring(parseInt(s[1]), netMask.length)
+      let network = s[0]
+        .split('.')
+        .map((e, index) => {
+          let a = ('00000000' + Number(e).toString(2)).slice(-8)
+          // console.log('a', a)
+          // console.log('netmask', netMask.substring(lastIndex, (index + 1) * 8))
+          a = parseInt(a, 2) & parseInt(netMask.substring(lastIndex, (index + 1) * 8), 2)
+          lastIndex = (index + 1) * 8
+
+          return a
+        })
+        .join('.')
+      hosts.push(network)
+    } else {
+      hosts.push(hostName)
+    }
+  })
+  return hosts
 }
 
 createJSON = (hosts, wantedPort) => {
@@ -104,7 +130,6 @@ getWantedPorts = ports => {
         //   }
         // }
       } else if (!wantedPort.includes(parseInt(port))) {
-        console.log('else', port)
         wantedPort.push(parseInt(port))
       }
     })
